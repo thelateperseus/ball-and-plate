@@ -30,8 +30,9 @@ void loop(void) {
   //if (p.z > ts.pressureThreshhold) {
      Serial.print("X:"); Serial.print(p.x);
      Serial.print(", Y:"); Serial.print(p.y);
-     Serial.print(", Pressure:"); Serial.println(p.z);
+     //Serial.print(", Pressure:"); Serial.print(p.z);
+     Serial.println();
   //}
 
-  delay(100);
+  delay(20);
 }

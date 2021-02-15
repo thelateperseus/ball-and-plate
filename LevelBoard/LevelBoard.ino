@@ -43,9 +43,11 @@ void setup() {
   pwm.setPWMFreq(SERVO_FREQ);  // Analog servos run at ~50 Hz updates
 
   delay(10);
-  pwm.setPWM(0, 0, 315);
+  pwm.setPWM(0, 0, 328);
   pwm.setPWM(1, 0, 315);
-  pwm.setPWM(2, 0, 302);
+  pwm.setPWM(2, 0, 333);
+  // Left side of desk: 322, 308, 335
+  // Right side of desk: 328, 315, 333
 }
 
 void loop() {
