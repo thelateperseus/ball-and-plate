@@ -10,28 +10,46 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 330);
 
 const int LOOP_MICROS = 20000;
 
-int16_t previousX = 0;
-int16_t previousY = 0;
+int16_t previousX = -1;
+int16_t previousY = -1;
 long loopEndTime = 0;
+int16_t missedReadingCount = 10;
 
 void setup(void) {
   Serial.begin(115200);
+
+  // Ignore first reading, which always seems to have an X value, even when there is no ball.
+  TSPoint p = ts.getPoint();
+
   loopEndTime = micros() + LOOP_MICROS;
 }
 
 void loop(void) {
   TSPoint p = ts.getPoint();
 
-  if (p.x > 0) {
+  // Ignore any reading where there is no X value, or where the X or Y value changes by 50 (out of 1024).
+  boolean xPresent = p.x > 0;
+  boolean noXSpike = previousX == -1 || abs(previousX - p.x) < 50;
+  boolean noYSpike = previousY == -1 || abs(previousY - p.y) < 50;
+  if (xPresent && noXSpike && noYSpike) {
     previousX = p.x;
     previousY = p.y;
+    missedReadingCount = 0;
+  } else if (!xPresent && missedReadingCount < 10) {
+    missedReadingCount += 1;
   }
 
-  Serial.print("rX:"); Serial.print(p.x);
-  Serial.print(", rY:"); Serial.print(p.y);
-  Serial.print(", fX:"); Serial.print(previousX);
-  Serial.print(", fY:"); Serial.print(previousY);
-  Serial.println();
+  // Assume the ball is removed if we have 10 contiguous missed readings 
+  if (missedReadingCount >= 10) {
+    previousX = -1;
+    previousY = -1;
+  } else {
+    //Serial.print(", rX:"); Serial.print(p.x);
+    //Serial.print(", rY:"); Serial.print(p.y);
+    Serial.print(", fX:"); Serial.print(previousX);
+    Serial.print(", fY:"); Serial.print(previousY);
+    Serial.println();
+  }
 
   long durationToEndTime = loopEndTime - micros();
   if (durationToEndTime > 0) {
