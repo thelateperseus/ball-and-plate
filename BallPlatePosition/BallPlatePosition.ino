@@ -12,7 +12,7 @@ const int LOOP_MICROS = 20000;
 
 int16_t previousX = -1;
 int16_t previousY = -1;
-long loopEndTime = 0;
+unsigned long loopEndTime = 0;
 int16_t missedReadingCount = 10;
 
 void setup(void) {
@@ -39,7 +39,7 @@ void loop(void) {
     missedReadingCount += 1;
   }
 
-  // Assume the ball is removed if we have 10 contiguous missed readings 
+  // Assume the ball is removed if we have 10 contiguous missed readings
   if (missedReadingCount >= 10) {
     previousX = -1;
     previousY = -1;
@@ -51,9 +51,6 @@ void loop(void) {
     Serial.println();
   }
 
-  long durationToEndTime = loopEndTime - micros();
-  if (durationToEndTime > 0) {
-    delayMicroseconds(LOOP_MICROS);
-  }
+  while (loopEndTime > micros());
   loopEndTime += LOOP_MICROS;
 }
