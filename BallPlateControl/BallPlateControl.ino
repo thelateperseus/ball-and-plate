@@ -24,11 +24,12 @@ int setPointDegrees = 0;
 
 double ballX = -1, ballY = -1;
 double outputX, outputY;
-double kp = 0.01;
-double ki = 0.003;
-double kd = 0.008;
-PID pidX(&ballX, &outputX, &setPointX, kp, ki, kd, DIRECT);
-PID pidY(&ballY, &outputY, &setPointY, kp * 0.75, ki * 0.75, kd * 0.75, DIRECT);
+const double KP = 0.02;
+const double KI = 0.003;
+const double KD = 0.009;
+const double ASPECT_RATIO = 0.75;
+PID pidX(&ballX, &outputX, &setPointX, KP, KI, KD, DIRECT);
+PID pidY(&ballY, &outputY, &setPointY, KP * ASPECT_RATIO, KI * ASPECT_RATIO, KD * ASPECT_RATIO, DIRECT);
 
 SoftwareSerial bluetoothSerial(2, 3); // RX, TX
 
@@ -37,7 +38,8 @@ int mode = 1;
 const int LOOP_MICROS = 20000;
 
 long loopEndTime = 0;
-int missedReadingCount = 10;
+const int MISSED_READING_LIMIT = 10;
+int missedReadingCount = MISSED_READING_LIMIT;
 
 void setServoAngle(uint8_t n, double angle) {
   double pulse = servoCentre[n] + angle * 2.5;
@@ -53,7 +55,7 @@ void setPlateAngle(double xAngle, double yAngle) {
 
 void setup() {
   Serial.begin(115200);
-  bluetoothSerial.begin(38400);
+  bluetoothSerial.begin(115200);
 
   // Ignore first reading, which always seems to have an X value, even when there is no ball.
   TSPoint p = ts.getPoint();
@@ -75,47 +77,60 @@ void setup() {
 }
 
 void loop() {
-  /*
-    if (bluetoothSerial.available()) {
+  unsigned long time = millis();
+
+  int oldMode = mode;
+  if (bluetoothSerial.available()) {
     mode = bluetoothSerial.read(); //reads serial input
     mode = mode - '0';
     bluetoothSerial.print("New mode: ");
     bluetoothSerial.println(mode);
-    }
+  }
 
-    if (mode == 0) {
+  if (mode == 0) {
+    delay(100);
+    if (oldMode != 0) {
+      ballX = -1;
+      ballY = -1;
       setPlateAngle(0, 0);
-      delay(100);
-      return;
+      pidX.SetMode(MANUAL);
+      pidY.SetMode(MANUAL);
+      outputX = 0;
+      outputY = 0;
     }
+    return;
+  } else if (oldMode == 0) {
+    pidX.SetMode(AUTOMATIC);
+    pidY.SetMode(AUTOMATIC);
+  }
 
-    if (mode == 1) {
-      setPointX = 512;
-      setPointY = 512;
-    } else if ( mode == 2 ) {
-      unsigned int setPointCounter = (time / 5000 ) % 4;
-      if (setPointCounter == 0) {
-        setPointX = 256;
-        setPointY = 256;
-      } else if (setPointCounter == 1) {
-        setPointX = 768;
-        setPointY = 256;
-      } else if (setPointCounter == 2) {
-        setPointX = 768;
-        setPointY = 768;
-      } else if (setPointCounter == 3) {
-        setPointX = 256;
-        setPointY = 768;
-      }
-    } else if ( mode == 3 ) {
-      setPointDegrees += 5;
-      if (setPointDegrees >= 360) {
-        setPointDegrees = 0;
-      }
-      setPointX = 512 + 300 * sin(DEG_TO_RAD * setPointDegrees);
-      setPointY = 512 + 300 * cos(DEG_TO_RAD * setPointDegrees);
+  if (mode == 1) {
+    setPointX = 512;
+    setPointY = 512;
+  } else if ( mode == 2 ) {
+    unsigned int setPointCounter = (time / 5000 ) % 4;
+    if (setPointCounter == 0) {
+      setPointX = 320;
+      setPointY = 320;
+    } else if (setPointCounter == 1) {
+      setPointX = 704;
+      setPointY = 320;
+    } else if (setPointCounter == 2) {
+      setPointX = 704;
+      setPointY = 704;
+    } else if (setPointCounter == 3) {
+      setPointX = 320;
+      setPointY = 704;
     }
-  */
+  } else if ( mode == 3 ) {
+    setPointDegrees += 3;
+    if (setPointDegrees >= 360) {
+      setPointDegrees = 0;
+    }
+    setPointX = 512 + 200 * sin(DEG_TO_RAD * setPointDegrees);
+    setPointY = 512 + 200 * cos(DEG_TO_RAD * setPointDegrees);
+  }
+
   TSPoint p = ts.getPoint();
 
   // Ignore any reading where there is no X value, or where the X or Y value changes by 50 (out of 1024).
@@ -126,7 +141,7 @@ void loop() {
   boolean validReading = xPresent && noXSpike && noYSpike;
   if (validReading) {
     // Restart the PID controllers if the ball is placed back on the plate
-    if (missedReadingCount >= 10) {
+    if (missedReadingCount >= MISSED_READING_LIMIT) {
       pidX.SetMode(AUTOMATIC);
       pidY.SetMode(AUTOMATIC);
     }
@@ -135,7 +150,7 @@ void loop() {
     ballY = p.y;
     missedReadingCount = 0;
 
-  } else if (!xPresent && missedReadingCount < 10) {
+  } else if (!xPresent && missedReadingCount < MISSED_READING_LIMIT) {
     // Missed reading (not counting invalid "spike" readings)
     missedReadingCount += 1;
   }
@@ -144,7 +159,7 @@ void loop() {
   loopEndTime += LOOP_MICROS;
 
   // Assume the ball is removed if we have 10 contiguous missed readings
-  if (missedReadingCount >= 10) {
+  if (missedReadingCount >= MISSED_READING_LIMIT) {
     ballX = -1;
     ballY = -1;
     setPlateAngle(0, 0);
