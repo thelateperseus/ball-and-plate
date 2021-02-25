@@ -31,17 +31,18 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 #define SERVOMAX  600 // This is the 'maximum' pulse length count (out of 4096)
 #define SERVO_FREQ 50 // Analog servos run at ~50 Hz updates
 
-#define MAX_ANGLE 5
+#define MAX_ANGLE 15
+#define ANGLE_STEP 0.5
 
 int servoCentre[] = { 328, 315, 333 };
 
-void setServoAngle(uint8_t n, int angle) {
+void setServoAngle(uint8_t n, double angle) {
   double pulse = servoCentre[n] + angle * 2.5;
   pulse = constrain(pulse, 220, 390);
   pwm.setPWM(n, 0, pulse);
 }
 
-void setPlateAngle(int xAngle, int yAngle) {
+void setPlateAngle(double xAngle, double yAngle) {
   setServoAngle(0, xAngle);
   setServoAngle(1, 0.866 * yAngle - xAngle * 0.5);
   setServoAngle(2, -0.866 * yAngle - xAngle * 0.5);
@@ -62,37 +63,37 @@ void setup() {
 }
 
 void loop() {
-  for (int yAngle = 0; yAngle < MAX_ANGLE; yAngle++) {
+  for (double yAngle = 0; yAngle < MAX_ANGLE; yAngle += ANGLE_STEP) {
     setPlateAngle(0, yAngle);
     delay(50);
   }
 
-  for (int xAngle = 0; xAngle < MAX_ANGLE; xAngle++) {
+  for (double xAngle = 0; xAngle < MAX_ANGLE; xAngle += ANGLE_STEP) {
     setPlateAngle(xAngle, MAX_ANGLE);
     delay(50);
   }
 
-  for (int yAngle = MAX_ANGLE; yAngle > -MAX_ANGLE; yAngle--) {
+  for (double yAngle = MAX_ANGLE; yAngle > -MAX_ANGLE; yAngle -= ANGLE_STEP) {
     setPlateAngle(MAX_ANGLE, yAngle);
     delay(50);
   }
 
-  for (int xAngle = MAX_ANGLE; xAngle > -MAX_ANGLE; xAngle--) {
+  for (double xAngle = MAX_ANGLE; xAngle > -MAX_ANGLE; xAngle -= ANGLE_STEP) {
     setPlateAngle(xAngle, -MAX_ANGLE);
     delay(50);
   }
 
-  for (int yAngle = -MAX_ANGLE; yAngle < MAX_ANGLE; yAngle++) {
+  for (double yAngle = -MAX_ANGLE; yAngle < MAX_ANGLE; yAngle += ANGLE_STEP) {
     setPlateAngle(-MAX_ANGLE, yAngle);
     delay(50);
   }
 
-  for (int xAngle = -MAX_ANGLE; xAngle < 0; xAngle++) {
+  for (double xAngle = -MAX_ANGLE; xAngle < 0; xAngle += ANGLE_STEP) {
     setPlateAngle(xAngle, MAX_ANGLE);
     delay(50);
   }
 
-  for (int yAngle = MAX_ANGLE; yAngle > 0; yAngle--) {
+  for (double yAngle = MAX_ANGLE; yAngle > 0; yAngle -= ANGLE_STEP) {
     setPlateAngle(0, yAngle);
     delay(50);
   }
