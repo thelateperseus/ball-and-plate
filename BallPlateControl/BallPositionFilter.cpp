@@ -2,13 +2,14 @@
 #include "BallPositionFilter.h"
 
 #define SPIKE_THRESHOLD 60
-#define MISSED_READING_LIMIT 10;
+#define MISSED_READING_LIMIT 10
+#define SPIKE_LIMIT 2
 
 BallPositionFilter::BallPositionFilter(TouchScreen* ts) {
   touchScreen = ts;
   previousX = -1;
   previousY = -1;
-  previousSpike = false;
+  spikeCount = 0;
 
   // Start by assuming the ball is not present
   missedReadingCount = MISSED_READING_LIMIT;
@@ -26,15 +27,15 @@ TSPoint BallPositionFilter::getPoint() {
   bool xPresent = p.x > 0;
   bool spikeX = previousX != -1 && abs(previousX - p.x) >= SPIKE_THRESHOLD;
   bool spikeY = previousY != -1 && abs(previousY - p.y) >= SPIKE_THRESHOLD;
-  bool spike = spikeX || spikeY;
+  bool spike = (spikeX || spikeY) && spikeCount < SPIKE_LIMIT;
 
   // Ignore any reading where there is no X value, or where the X or Y value dramatically by 50 (out of 1024).
-  bool skipReading = !xPresent || (spike && !previousSpike);
+  bool skipReading = !xPresent || spike;
 
   if (!skipReading) {
     previousX = p.x;
     previousY = p.y;
-    previousSpike = false;
+    spikeCount = 0;
     missedReadingCount = 0;
 
 #ifdef RAW_POSITION_DEBUG
@@ -86,7 +87,9 @@ TSPoint BallPositionFilter::getPoint() {
 #endif
     }
 
-    previousSpike = spike;
+    if (spike) {
+      spikeCount += 1;
+    }
   }
 
   return p;

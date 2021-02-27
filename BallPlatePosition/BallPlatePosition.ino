@@ -28,9 +28,9 @@ void loop(void) {
 #ifdef RAW_POSITION_DEBUG
     Serial.print(", ");
 #endif
-    Serial.print("fX: ");
+    Serial.print("fX:");
     Serial.print(p.x);
-    Serial.print(", fY: ");
+    Serial.print(", fY:");
     Serial.print(p.y);
     Serial.println();
   }
