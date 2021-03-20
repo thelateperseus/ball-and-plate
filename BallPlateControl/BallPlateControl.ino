@@ -16,7 +16,7 @@ BallPositionFilter ballPosition = BallPositionFilter(&ts);
 Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 1570, 1500, 1605 };
+int servoCentre[] = { 1580, 1545, 1470 };
 
 // Aim for centre of plate
 #define CENTRE_X 480
@@ -26,9 +26,9 @@ int setPointDegrees = 0;
 
 double ballX = -1, ballY = -1;
 double outputX, outputY;
-const double KP = 0.07;
-const double KI = 0.003; //0.003;
-const double KD = 0.025; //0.02;
+const double KP = 0.03;
+const double KI = 0; //0.003; //0.003;
+const double KD = 0.008;
 const double ASPECT_RATIO = 0.71; // Ideally 0.75
 PID pidX(&ballX, &outputX, &setPointX, KP, KI, KD, DIRECT);
 PID pidY(&ballY, &outputY, &setPointY, KP * ASPECT_RATIO, KI * ASPECT_RATIO, KD * ASPECT_RATIO, DIRECT);
@@ -42,7 +42,7 @@ const int LOOP_MICROS = 20000;
 long loopEndTime = 0;
 
 void setServoAngle(uint8_t n, double angle) {
-  double pulse = servoCentre[n] + angle * 5.556;
+  double pulse = servoCentre[n] + angle * 8;
   int offset = servoCentre[n] - 1500;
   pulse = constrain(pulse, 1300 + offset, 1700 + offset);
   servos[n].writeMicroseconds(pulse);

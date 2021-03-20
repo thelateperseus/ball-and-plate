@@ -6,12 +6,12 @@
 Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 1570, 1500, 1605 };
+int servoCentre[] = { 1580, 1545, 1470 };
 
 void setServoAngle(uint8_t n, double angle) {
-  double pulse = servoCentre[n] + angle * 5.556;
+  double pulse = servoCentre[n] + angle * 10;
   int offset = servoCentre[n] - 1500;
-  pulse = constrain(pulse, 1300 + offset, 1700 + offset);
+  pulse = constrain(pulse, 1200 + offset, 1800 + offset);
   servos[n].writeMicroseconds(pulse);
   Serial.print("n:");
   Serial.print(n);

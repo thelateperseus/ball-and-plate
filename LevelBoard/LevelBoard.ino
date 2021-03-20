@@ -2,6 +2,9 @@
 
 Servo servos[3];
 
+// Ball is stationary at 1570, 1500, 1605 with MG996R
+int servoCentre[] = { 1580, 1545, 1470 };
+
 void setup() {
   Serial.begin(115200);
   Serial.println("Level plate");
@@ -10,10 +13,9 @@ void setup() {
   servos[1].attach(8);
   servos[2].attach(9);
 
-  // Ball is stationary at 1570, 1500, 1605
-  servos[0].writeMicroseconds(1570);
-  servos[1].writeMicroseconds(1500);
-  servos[2].writeMicroseconds(1605);
+  for (int i = 0; i < 3; i++) {
+    servos[i].writeMicroseconds(servoCentre[i]);
+  }
 }
 
 void loop() {
