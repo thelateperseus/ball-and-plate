@@ -1,7 +1,5 @@
-#define LOW_PASS_FILTER 1
-
-#include <Adafruit_PWMServoDriver.h>
 #include "PID_v1.h"
+#include <Servo.h>
 #include <SoftwareSerial.h>
 #include <TouchScreen.h>
 #include "BallPositionFilter.h"
@@ -15,10 +13,10 @@
 TouchScreen ts = TouchScreen(XP, YP, XM, YM, 330);
 BallPositionFilter ballPosition = BallPositionFilter(&ts);
 
-Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 328, 315, 333 };
+int servoCentre[] = { 1570, 1500, 1605 };
 
 // Aim for centre of plate
 #define CENTRE_X 480
@@ -28,14 +26,14 @@ int setPointDegrees = 0;
 
 double ballX = -1, ballY = -1;
 double outputX, outputY;
-const double KP = 0.03;
-const double KI = 0.002; //0.003;
-const double KD = 0.009;
+const double KP = 0.07;
+const double KI = 0.003; //0.003;
+const double KD = 0.025; //0.02;
 const double ASPECT_RATIO = 0.71; // Ideally 0.75
 PID pidX(&ballX, &outputX, &setPointX, KP, KI, KD, DIRECT);
 PID pidY(&ballY, &outputY, &setPointY, KP * ASPECT_RATIO, KI * ASPECT_RATIO, KD * ASPECT_RATIO, DIRECT);
 
-SoftwareSerial bluetoothSerial(2, 3); // RX, TX
+//SoftwareSerial bluetoothSerial(2, 3); // RX, TX
 
 int mode = 1;
 
@@ -44,9 +42,10 @@ const int LOOP_MICROS = 20000;
 long loopEndTime = 0;
 
 void setServoAngle(uint8_t n, double angle) {
-  double pulse = servoCentre[n] + angle * 2.5;
-  pulse = constrain(pulse, 260, 380);
-  pwm.setPWM(n, 0, pulse);
+  double pulse = servoCentre[n] + angle * 5.556;
+  int offset = servoCentre[n] - 1500;
+  pulse = constrain(pulse, 1300 + offset, 1700 + offset);
+  servos[n].writeMicroseconds(pulse);
 }
 
 void setPlateAngle(double xAngle, double yAngle) {
@@ -96,18 +95,24 @@ void computeSetPoint(int mode) {
 
 void setup() {
   Serial.begin(115200);
-  bluetoothSerial.begin(115200);
+  //bluetoothSerial.begin(115200);
 
-  pwm.begin();
-  pwm.setPWMFreq(50);  // Analog servos run at ~50 Hz updates
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
 
-  delay(10);
-  setPlateAngle(0, 0);
+  servos[0].attach(7);
+  servos[1].attach(8);
+  servos[2].attach(9);
+  for (int i = 0; i < 3; i++) {
+    servos[i].writeMicroseconds(servoCentre[i]);
+  }
+
+  delay(50);
 
   pidX.SetSampleTime(LOOP_MICROS / 1000);
   pidY.SetSampleTime(LOOP_MICROS / 1000);
-  pidX.SetOutputLimits(-15, 15);
-  pidY.SetOutputLimits(-15, 15);
+  pidX.SetOutputLimits(-25, 25);
+  pidY.SetOutputLimits(-25, 25);
   pidX.SetMode(AUTOMATIC);
   pidY.SetMode(AUTOMATIC);
 
@@ -116,12 +121,12 @@ void setup() {
 
 void loop() {
   int oldMode = mode;
-  if (bluetoothSerial.available()) {
+  /*if (bluetoothSerial.available()) {
     mode = bluetoothSerial.read(); //reads serial input
     mode = mode - '0';
     bluetoothSerial.print("New mode: ");
     bluetoothSerial.println(mode);
-  }
+    }*/
 
   if (mode == 0) {
     delay(100);
@@ -144,6 +149,7 @@ void loop() {
     if (!wasPresent) {
       pidX.SetMode(AUTOMATIC);
       pidY.SetMode(AUTOMATIC);
+      digitalWrite(LED_BUILTIN, HIGH);
     }
 
     ballX = p.x;
@@ -162,16 +168,18 @@ void loop() {
     Serial.print(ballX);
     Serial.print(", y:");
     Serial.print(ballY);
-    //Serial.print(", outX:");
-    //Serial.print(outputX);
-    //Serial.print(", outY:");
-    //Serial.print(outputY);
+    Serial.print(", outX:");
+    /*Serial.print("outX:");
+      Serial.print(outputX);
+      Serial.print(", outY:");
+      Serial.print(outputY);*/
     Serial.println();
   }
 
   // Assume the ball is removed if we have 10 contiguous missed readings
-  else {
+  else if (wasPresent) {
     resetPID();
+    digitalWrite(LED_BUILTIN, LOW);
   }
 
   while (loopEndTime > micros());

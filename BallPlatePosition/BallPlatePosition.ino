@@ -1,4 +1,3 @@
-#include <stdint.h>
 #include "TouchScreen.h"
 #include "BallPositionFilter.h"
 
@@ -35,6 +34,14 @@ void loop(void) {
     Serial.println();
   }
 
+/*
+  TSPoint p = ts.getPoint();
+  Serial.print("fX:");
+  Serial.print(p.x);
+  Serial.print(", fY:");
+  Serial.print(p.y);
+  Serial.println();
+*/
   while (loopEndTime > micros());
   loopEndTime += LOOP_MICROS;
 }

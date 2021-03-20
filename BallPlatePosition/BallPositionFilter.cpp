@@ -15,7 +15,7 @@ BallPositionFilter::BallPositionFilter(TouchScreen* ts) {
   missedReadingCount = MISSED_READING_LIMIT;
 
   // Ignore first reading, which always seems to have an X value, even when there is no ball.
-  TSPoint p = touchScreen -> getPoint();
+  //TSPoint p = touchScreen -> getPoint();
 
   filterX = LowPassFilter();
   filterY = LowPassFilter();
