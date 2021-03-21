@@ -16,35 +16,35 @@ BallPositionFilter ballPosition = BallPositionFilter(&ts);
 Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 1580, 1545, 1470 };
+int servoCentre[] = { 1590, 1570, 1500 }; // MG996R, short arms, ball is stationary
 
 // Aim for centre of plate
-#define CENTRE_X 480
+#define CENTRE_X 510
 #define CENTRE_Y 510
 double setPointX = CENTRE_X, setPointY = CENTRE_Y;
 int setPointDegrees = 0;
 
 double ballX = -1, ballY = -1;
 double outputX, outputY;
-const double KP = 0.03;
-const double KI = 0; //0.003; //0.003;
-const double KD = 0.008;
+const double KP = 0.15;
+const double KI = 0.01;
+const double KD = 0.05; //0.05
 const double ASPECT_RATIO = 0.71; // Ideally 0.75
 PID pidX(&ballX, &outputX, &setPointX, KP, KI, KD, DIRECT);
 PID pidY(&ballY, &outputY, &setPointY, KP * ASPECT_RATIO, KI * ASPECT_RATIO, KD * ASPECT_RATIO, DIRECT);
 
 //SoftwareSerial bluetoothSerial(2, 3); // RX, TX
 
-int mode = 1;
+int mode = 2;
 
 const int LOOP_MICROS = 20000;
 
 long loopEndTime = 0;
 
 void setServoAngle(uint8_t n, double angle) {
-  double pulse = servoCentre[n] + angle * 8;
+  double pulse = servoCentre[n] + angle * 5.556;
   int offset = servoCentre[n] - 1500;
-  pulse = constrain(pulse, 1300 + offset, 1700 + offset);
+  pulse = constrain(pulse, 1100 + offset, 1900 + offset);
   servos[n].writeMicroseconds(pulse);
 }
 
@@ -111,8 +111,8 @@ void setup() {
 
   pidX.SetSampleTime(LOOP_MICROS / 1000);
   pidY.SetSampleTime(LOOP_MICROS / 1000);
-  pidX.SetOutputLimits(-25, 25);
-  pidY.SetOutputLimits(-25, 25);
+  pidX.SetOutputLimits(-60, 60);
+  pidY.SetOutputLimits(-60, 60);
   pidX.SetMode(AUTOMATIC);
   pidY.SetMode(AUTOMATIC);
 
@@ -168,7 +168,7 @@ void loop() {
     Serial.print(ballX);
     Serial.print(", y:");
     Serial.print(ballY);
-    Serial.print(", outX:");
+    //Serial.print(", outX:");
     /*Serial.print("outX:");
       Serial.print(outputX);
       Serial.print(", outY:");

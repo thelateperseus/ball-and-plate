@@ -1,17 +1,17 @@
 #include <Servo.h>
 
-#define MAX_ANGLE 25
-#define ANGLE_STEP 0.5
+#define MAX_ANGLE 75
+#define ANGLE_STEP 2
 
 Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 1580, 1545, 1470 };
+int servoCentre[] = { 1590, 1570, 1500 }; // MG996R, short arms, ball is stationary
 
 void setServoAngle(uint8_t n, double angle) {
-  double pulse = servoCentre[n] + angle * 10;
+  double pulse = servoCentre[n] + angle * 5.556;
   int offset = servoCentre[n] - 1500;
-  pulse = constrain(pulse, 1200 + offset, 1800 + offset);
+  pulse = constrain(pulse, 1100 + offset, 1900 + offset);
   servos[n].writeMicroseconds(pulse);
   Serial.print("n:");
   Serial.print(n);
