@@ -1,6 +1,5 @@
 #include "PID_v1.h"
 #include <Servo.h>
-#include <SoftwareSerial.h>
 #include <TouchScreen.h>
 #include "BallPositionFilter.h"
 
@@ -33,9 +32,7 @@ const double ASPECT_RATIO = 0.71; // Ideally 0.75
 PID pidX(&ballX, &outputX, &setPointX, KP, KI, KD, DIRECT);
 PID pidY(&ballY, &outputY, &setPointY, KP * ASPECT_RATIO, KI * ASPECT_RATIO, KD * ASPECT_RATIO, DIRECT);
 
-//SoftwareSerial bluetoothSerial(2, 3); // RX, TX
-
-int mode = 2;
+int mode = 1;
 
 const int LOOP_MICROS = 20000;
 
@@ -95,7 +92,7 @@ void computeSetPoint(int mode) {
 
 void setup() {
   Serial.begin(115200);
-  //bluetoothSerial.begin(115200);
+  Serial1.begin(115200);
 
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
@@ -121,12 +118,12 @@ void setup() {
 
 void loop() {
   int oldMode = mode;
-  /*if (bluetoothSerial.available()) {
-    mode = bluetoothSerial.read(); //reads serial input
+  if (Serial1.available()) {
+    mode = Serial1.read(); //reads serial input
     mode = mode - '0';
-    bluetoothSerial.print("New mode: ");
-    bluetoothSerial.println(mode);
-    }*/
+    Serial1.print("New mode: ");
+    Serial1.println(mode);
+  }
 
   if (mode == 0) {
     delay(100);
