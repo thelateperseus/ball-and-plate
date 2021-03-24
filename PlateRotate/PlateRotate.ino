@@ -6,7 +6,7 @@
 Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 1590, 1570, 1500 }; // MG996R, short arms, ball is stationary
+int servoCentre[] = { 1580, 1480, 1480 }; // MG996R, short arms, ball is stationary
 
 void setServoAngle(uint8_t n, double angle) {
   double pulse = servoCentre[n] + angle * 5.556;

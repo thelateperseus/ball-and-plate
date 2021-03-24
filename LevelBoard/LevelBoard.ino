@@ -5,7 +5,8 @@ Servo servos[3];
 //int servoCentre[] = { 1500, 1500, 1500 }; // centering
 //int servoCentre[] = { 1570, 1500, 1605 }; // MG996R, long arms, ball is stationary
 //int servoCentre[] = { 1580, 1545, 1470 }; // JX PDI-6113MG, ball close to stationary
-int servoCentre[] = { 1590, 1570, 1500 }; // MG996R, short arms, ball is stationary
+int servoCentre[] = { 1580, 1480, 1480 }; // MG996R, short arms, ball is stationary
+//int servoCentre[] = { 1540, 1520, 1560 }; // JX PDI-6113MG, short arms, ball is stationary
 
 void setup() {
   Serial.begin(115200);
