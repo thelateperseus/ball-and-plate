@@ -15,7 +15,7 @@ BallPositionFilter ballPosition = BallPositionFilter(&ts);
 Servo servos[3];
 
 // Pulse values for centre position for each servo
-int servoCentre[] = { 1580, 1480, 1480 }; // MG996R, short arms, ball is stationary
+int servoCentre[] = { 1540, 1480, 1500 }; // MG996R, short arms, ball is stationary
 
 // Aim for centre of plate
 #define CENTRE_X 510
@@ -25,8 +25,8 @@ int setPointDegrees = 0;
 
 double ballX = -1, ballY = -1;
 double outputX, outputY;
-const double KP = 0.15;
-const double KI = 0.01;
+const double KP = 0.14;
+const double KI = 0.015;
 const double KD = 0.05; //0.05
 const double ASPECT_RATIO = 0.71; // Ideally 0.75
 PID pidX(&ballX, &outputX, &setPointX, KP, KI, KD, DIRECT);
