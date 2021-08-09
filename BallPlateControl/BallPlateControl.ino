@@ -66,7 +66,7 @@ void computeSetPoint(int mode) {
     setPointX = CENTRE_X;
     setPointY = CENTRE_Y;
   } else if ( mode == 2 ) {
-    unsigned int setPointCounter = (millis() / 5000 ) % 4;
+    unsigned int setPointCounter = (millis() / 2500 ) % 4;
     if (setPointCounter == 0) {
       setPointX = CENTRE_X - 175;
       setPointY = CENTRE_Y - 175;
