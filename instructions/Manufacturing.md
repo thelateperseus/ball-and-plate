@@ -18,8 +18,8 @@ Touch Panel Frame
 
 I designed a frame to hold the touch panel in place and attach to the servo arms. Arrange for the following parts to be 3D printed in PLA.
 
-* [Panel Top.stl](../CADv2/Panel+Top.stl)
-* [Panel Border.stl](../CADv2/Panel+Border.stl)
+* [Panel Top.stl](../CADv2/Panel%20Top.stl)
+* [Panel Border.stl](../CADv2/Panel%20Border.stl)
 * [Underside.stl](../CADv2/Underside.stl)
 
 You might want to wait until you have the touch panel so you can check the measurements.
