@@ -10,8 +10,8 @@ Mechanism
 
 | Part  | Price | Quantity |
 | ------------- | ------------- | ------------- |
-| [18mm thick pine panel](https://www.bunnings.com.au/300-x-18mm-x-1-2m-pine-utility-panel_p0019145) for base, at least 170mm x 150mm | ??? | 1 |
-| [42mm x 19mm pine DAR](https://www.bunnings.com.au/porta-42-x-19mm-1-8m-premium-pine-dar_p0211230) for legs | ??? | 1 |
+| [18mm thick pine panel](https://www.bunnings.com.au/300-x-18mm-x-1-2m-pine-utility-panel_p0019145) for base, at least 170mm x 150mm | $29.00 | 1 |
+| [42mm x 19mm pine DAR](https://www.bunnings.com.au/porta-42-x-19mm-1-8m-premium-pine-dar_p0211230) for legs | $6.75 | 1 |
 | [Aluminum Standoff: 1/4" Length, 2-56 Thread, M-F (4-Pack)](https://core-electronics.com.au/aluminum-standoff-1-4-length-2-56-thread-m-f-4-pack.html) | $2.05 | 1 |
 | [Machine Screw: #2-56, 1/4" Length, Phillips (25-pack)](https://core-electronics.com.au/machine-screw-2-56-1-4-length-phillips-25-pack.html) | $1.65 | 1 |
 | [4X MG996R Digital Metal Gear Servo](https://www.banggood.com/4X-MG996R-Digital-Metal-Gear-Servo-For-Robot-ZOHD-Volantex-Airplane-RC-Helicopter-Car-Boat-Model-p-961727.html?rmmds=myorder&cur_warehouse=CN) | $36.73 | 1 |
@@ -20,8 +20,6 @@ Mechanism
 | [M4 Aluminum Fisheye Ball Bearing Rod Ends Joint](https://www.banggood.com/M3-or-M4-Aluminum-Fisheye-Ball-Bearing-Rod-Ends-Joint-Thread-Fish-Eye-For-3D-Printer-p-1304307.html?rmmds=myorder&cur_warehouse=CN&ID=514514) | $2.45 | 3 |
 | [G-FORCE ALUMINIUM CLEVIS HEAVY DUTY M4 (X2)](https://www.frontlinehobbies.com.au/g-force-aluminium-clevis-heavy-duty-m4-x2-gf-2110) | $11.99 | 2 |
 | [8" 4 Wire Resistive LCD Touch Screen](https://www.ebay.com.au/itm/180926055286) | $30.99 | 1 |
-| 3D printed frame | ??? | 1 |
-| Printed base template | ??? | 1 |
 | 10mm M3 screw | ??? | 11 |
 | 0.5mm M3 washers | ??? | 6 |
 | 20mm M4 screws | ??? | 3 |
@@ -36,7 +34,6 @@ Electronics
 
 | Part  | Price | Quantity |
 | ------------- | ------------- | ------------- |
-| [Ball and Plate Controller PCB](https://oshwlab.com/nclement/ball-and-plate-controller) | Varies | 1 |
 | [Arduino Nano Every](https://core-electronics.com.au/arduino-nano-every.html) | $22.95 | 1 |
 | [Pololu 5V Step-Up/Step-Down Voltage Regulator S7V7F5](https://core-electronics.com.au/pololu-5v-step-up-step-down-voltage-regulator-s7v7f5.html) | $19.60 | 1 |
 | [Bluetooth Module (HC-05)](https://core-electronics.com.au/bluetooth-module-hc-05.html) | $33.50 | 1 |
