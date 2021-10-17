@@ -1,7 +1,7 @@
 Ball and Plate Balancing System
 ===============================
 
-![](CADv2/BallAndPlate.jpg)
+![](instructions/BallAndPlate.jpg)
 
 https://youtu.be/56UyDa0NHvM
 
