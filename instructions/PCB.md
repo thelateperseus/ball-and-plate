@@ -39,6 +39,8 @@ Attach Components
 2. Plug the 5V regulator into the U4 header. Make sure to plug it in the right way around.
 3. Plug the HC-05 Bluetooth module into the U3 header.
 
+![](AssembledPCB.jpg)
+
 Attach to Base
 --------------
 
