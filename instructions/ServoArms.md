@@ -29,3 +29,9 @@ Plate Assembly
 
 ![](ServoArm.jpg)
 ![](ServoArm2.jpg)
+
+Electrical Connections
+----------------------
+
+1. Plug the 3 servo connectors into the PCB. Looking down on the base, M1 is at the 9 o'clock position, M2 at 1 o'clock and M3 at 5 o-clock.
+2. Plug the touch panel into J1. You may need some extension wires if the panel's cable is not long enough. You will check the orientation of the plug later in the software setup.

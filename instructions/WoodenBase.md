@@ -15,6 +15,13 @@ Drill and Cut the Base Plate
 
 ![](BasePlateHoles.png)
 
+PCB Mounting Holes
+------------------
+
+1. Using the blank PCB (with no components soldered) as a template, mark the 4 mounting holes on the bottom of the base plate.
+2. Use a 2mm drill bit to drill the mounting holes.
+3. Screw the 1/4" Length, 2-56 Thread Standoffs into the mounting holes.
+
 Cut and Attach the Legs
 -----------------------
 
