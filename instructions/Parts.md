@@ -20,14 +20,14 @@ Mechanism
 | [M4 Aluminum Fisheye Ball Bearing Rod Ends Joint](https://www.banggood.com/M3-or-M4-Aluminum-Fisheye-Ball-Bearing-Rod-Ends-Joint-Thread-Fish-Eye-For-3D-Printer-p-1304307.html?rmmds=myorder&cur_warehouse=CN&ID=514514) | $2.45 | 3 |
 | [G-FORCE ALUMINIUM CLEVIS HEAVY DUTY M4 (X2)](https://www.frontlinehobbies.com.au/g-force-aluminium-clevis-heavy-duty-m4-x2-gf-2110) | $11.99 | 2 |
 | [8" 4 Wire Resistive LCD Touch Screen](https://www.ebay.com.au/itm/180926055286) | $30.99 | 1 |
-| 10mm M3 screw | ??? | 11 |
-| 0.5mm M3 washers | ??? | 6 |
-| 20mm M4 screws | ??? | 3 |
-| M4 washers | ??? | 6 |
+| [M3 x 10mm Steel Screws - Pk.25](https://www.jaycar.com.au/m3-x-10mm-steel-screws-pk-25/p/HP0403?pos=4&queryId=72e3ad2001bc0214045fa5d18a15d2f5&sort=relevance) | $3.00 | 1 |
+| [3mm Flat Steel Washers - Pk.25](https://www.jaycar.com.au/3mm-flat-steel-washers-pk-25/p/HP0430) | $3.00 | 1 |
+| [M4 x 20mm Zinc Plated Round Head Bolts And Nuts - 16 Pack](https://www.bunnings.com.au/pinnacle-m4-x-20mm-zinc-plated-round-head-bolts-and-nuts-16-pack_p0168397) | $3.56 | 1 |
+| [30mm M4 screws for servo brackets - 100 Pack](https://au.element14.com/tr-fastenings/m4-30-prstmc-z100/screw-pozi-pan-steel-bzp-m4x30/dp/1419998) | $4.32  | 1 |
+| [M4 Steel Flat Washer - Pk.25](https://www.jaycar.com.au/m4-steel-flat-washer-pk-25/p/HP0465) | $3.50 | 1 |
 | M4 nuts | ??? | 15 |
 | M3 nuts | ??? | 11 |
 | 8G self-tapping screws for legs | ??? | ? |
-| ~27mm M4 screws for brackets | ??? | 12 |
 
 Electronics
 ---------
