@@ -13,6 +13,8 @@ Drill and Cut the Base Plate
 7. Use a 16mm wood spade bit to drill the point B.
 8. Use a jigsaw to cut along the lines formed by points A to the hole at point B.
 
+**Note:** The cut-out channels only need to be 35mm long, but the ones on the template are longer. You should cut shorter channels on your base plate.
+
 ![](BasePlateHoles.png)
 
 PCB Mounting Holes
