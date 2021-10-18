@@ -30,7 +30,7 @@ Solder Discrete Components
 4. Solder a 1k ohm resistor to R2.
 5. Solder a 2k ohm resistor to R3.
 6. Solder the LED to LED1, making sure to solder it in the right direction.
-7. Solder the Shotky diode to D1, making sure to solder it in the right direction.
+7. Solder the Schottky diode to D1, making sure to solder it in the right direction.
 
 Attach Components
 -----------------

@@ -1,5 +1,5 @@
-Aruino Code
-===========
+Arduino Code
+============
 
 The main controller code lives in the [BallPlateControl.ino](../BallPlateControl/BallPlateControl.ino) sketch. However, you should use the other sketches listed below first to check that the system components are functioning correctly.
 
@@ -23,19 +23,20 @@ Configure Bluetooth Module
 6. Uplug the USB cable from the Arduino to reset the HC-05 module back to normal mode..
 
 ```
-AT+NAME:BallPlate
-AT+PSWD="2222"
-AT+UART:115200,0,0
+AT+NAME=BallPlate
+AT+PSWD=2222
+AT+UART=115200,0,0
 ```
 
 Level Touch Panel
 -----------------
 
-1. Ensure that SW1 is open, i.e. no jumper connects the 2 pins.
-2. Connect the USB cable to the Arduino, and also connect DC power to the PCB.
-3. Using the Arduino IDE, upload the [LevelBoard.ino](../LevelBoard/LevelBoard.ino) sketch to the Arduino.
-4. Place the ball on the touch panel.
-5. Adjust the values in the `servoCentre` array and re-upload the code to the Arduino until the ball stays stationary.
+1. Place the mechanism on a level surface.
+2. Ensure that SW1 is open, i.e. no jumper connects the 2 pins.
+3. Connect the USB cable to the Arduino, and also connect DC power to the PCB.
+4. Using the Arduino IDE, upload the [LevelBoard.ino](../LevelBoard/LevelBoard.ino) sketch to the Arduino.
+5. Place the ball on the touch panel.
+6. Adjust the values in the `servoCentre` array and re-upload the code to the Arduino until the ball stays stationary (or rolls only very slowly).
 
 Controller Software
 -----------------
@@ -43,12 +44,12 @@ Controller Software
 1. Ensure that SW1 is open, i.e. no jumper connects the 2 pins.
 2. Connect the USB cable to the Arduino, and also connect DC power to the PCB.
 3. Using the Arduino IDE, open the [BallPlateControl.ino](../BallPlateControl/BallPlateControl.ino) sketch.
-4. Adjust the values in the `servoCentre` array as per the previous "Level Touch Panel" step.
+4. Set the values in the `servoCentre` array to the values determined in the previous "Level Touch Panel" step.
 5. Upload the sketch to the Arduino.
-6. Place the ball on the touch panel. The controller should try to keep it in the centre.
+6. Place the ball on the touch panel. The controller should keep the ball in the centre of the touch panel.
 7. Adjust PID constants if further tuning is required.
 
-**Important Note:** SW1 on the PCB controls whether the Arduino is powered from the 5V regulator on the PCB, or from USB. 
+**Important Note:** SW1 on the PCB controls whether the Arduino is powered from the 5V regulator on the PCB, or from USB. Do not attempt to power the Arduino from both sources at once!
 
 * To power from the 5V regulator, close SW1 using a jumper (aka busbar). Insert the micro USB dust cover into the Arduino USB port so you don't accidentally connect the USB power as well and fry everything.
 * If you need to make changes to the code or perform debugging, make sure you remove the jumper from SW1 before connecting the USB cable!!!

@@ -27,7 +27,7 @@ Mechanism
 | [M4 Steel Flat Washer - Pk.25](https://www.jaycar.com.au/m4-steel-flat-washer-pk-25/p/HP0465) | $3.50 | 1 |
 | M4 nuts | ??? | 15 |
 | M3 nuts | ??? | 11 |
-| 8G self-tapping screws for legs | ??? | ? |
+| 8G self-tapping screws for legs | ??? | 4 |
 
 Electronics
 ---------
